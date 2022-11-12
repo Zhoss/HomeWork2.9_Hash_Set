@@ -20,28 +20,28 @@ public class Main {
         addPassport(ivanovPP, passports);
         addPassport(rybakovAS, passports);
 
-        System.out.println(passports);
+        for (Passport passport : passports) {
+            System.out.println(passport);
+        }
 
         System.out.println(findPassport(5465165146L, passports));
     }
 
-    public static void addPassport(Passport passport, Set<Passport> set) {
-        if (!set.contains(passport)) {
-            set.add(passport);
-        } else {
-            for (Passport passport1 : set) {
-                if (passport1.getPassportNumber() == passport.getPassportNumber()) {
-                    passport1.setPersonLastName(passport.getPersonLastName());
-                    passport1.setPersonName(passport.getPersonName());
-                    passport1.setPersonPatronymic(passport.getPersonPatronymic());
-                    passport1.setPersonBirthDate(passport.getPersonBirthDate());
+    public static void addPassport(Passport passport, Set<Passport> passportSet) {
+        if (!passportSet.add(passport)) {
+            for (Passport passportFound : passportSet) {
+                if (passportFound.getPassportNumber() == passport.getPassportNumber()) {
+                    passportFound.setPersonLastName(passport.getPersonLastName());
+                    passportFound.setPersonName(passport.getPersonName());
+                    passportFound.setPersonPatronymic(passport.getPersonPatronymic());
+                    passportFound.setPersonBirthDate(passport.getPersonBirthDate());
                 }
             }
         }
     }
 
-    public static Passport findPassport(long passportNumber, Set<Passport> set) {
-        for (Passport passport : set) {
+    public static Passport findPassport(long passportNumber, Set<Passport> passportSet) {
+        for (Passport passport : passportSet) {
             if (passport.getPassportNumber() == passportNumber) {
                 return passport;
             }

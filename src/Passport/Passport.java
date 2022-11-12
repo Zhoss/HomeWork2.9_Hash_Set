@@ -79,7 +79,7 @@ public class Passport {
     public String toString() {
         return "Паспорт номер " + passportNumber +
                 ", Ф.И.О " + personLastName + " " + personName + " " +  personPatronymic +
-                ", дата рождения " + personBirthDate + "\n";
+                ", дата рождения " + personBirthDate;
     }
 
     @Override

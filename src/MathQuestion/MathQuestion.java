@@ -27,11 +27,16 @@ public class MathQuestion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MathQuestion that = (MathQuestion) o;
-        return multiplication.equals(that.multiplication) && (numberA == that.numberA && numberB == that.numberB || numberA == that.numberB && numberB == that.numberA);
+        if (multiplication.equals(that.multiplication)) {
+            return true;
+        } else if (numberA == that.numberB && numberB == that.numberA) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numberA, numberB, multiplication);
+        return Objects.hash(multiplication, numberA, numberB);
     }
 }

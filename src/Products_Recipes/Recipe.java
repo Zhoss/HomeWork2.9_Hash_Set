@@ -44,7 +44,10 @@ public class Recipe<T extends Product> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe<?> recipe = (Recipe<?>) o;
-        return name.equals(recipe.name);
+        if (name.equals(recipe.name)) {
+            throw new IllegalArgumentException("Рецепт " + getName() + " уже добавлен в кулинарную книгу");
+        }
+        return true;
     }
 
     @Override
