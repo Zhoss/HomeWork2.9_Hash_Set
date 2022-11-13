@@ -27,7 +27,7 @@ public class MathQuestion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MathQuestion that = (MathQuestion) o;
-        if (multiplication.equals(that.multiplication)) {
+        if (numberA == that.numberA && numberB == that.numberB) {
             return true;
         } else if (numberA == that.numberB && numberB == that.numberA) {
             return true;
@@ -37,6 +37,6 @@ public class MathQuestion {
 
     @Override
     public int hashCode() {
-        return Objects.hash(multiplication, numberA, numberB);
+        return Objects.hash(numberA * numberB * 31);
     }
 }
