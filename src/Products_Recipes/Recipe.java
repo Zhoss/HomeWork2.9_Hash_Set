@@ -1,32 +1,24 @@
 package Products_Recipes;
 
+import java.util.HashMap;
 import java.util.Objects;
-import java.util.Set;
 
-public class Recipe<T extends Product> {
+public class Recipe {
     private String name;
-    private Set<T> recipeProducts;
+    private HashMap<Product, Integer> recipeProducts = new HashMap<>();
     private int totalCost;
 
-    public Recipe(String name, Set<T> recipeProducts) {
+    public Recipe(String name) {
         if (name != null && !name.isEmpty() && !name.isBlank()) {
             this.name = name;
         }
-
-        this.recipeProducts = recipeProducts;
-
-        int totalCost = 0;
-        for (T product : recipeProducts) {
-            totalCost += product.getCost() * product.getAmount();
-        }
-        this.totalCost = totalCost;
     }
 
     public String getName() {
         return name;
     }
 
-    public Set<T> getRecipeProducts() {
+    public HashMap<Product, Integer> getRecipeProducts() {
         return recipeProducts;
     }
 
@@ -43,7 +35,7 @@ public class Recipe<T extends Product> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Recipe<?> recipe = (Recipe<?>) o;
+        Recipe recipe = (Recipe) o;
         if (name.equals(recipe.name)) {
             throw new IllegalArgumentException("Рецепт " + getName() + " уже добавлен в кулинарную книгу");
         }
@@ -52,6 +44,22 @@ public class Recipe<T extends Product> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, recipeProducts);
+    }
+
+    public void addProductToRecipe(Product product) {
+        if (product != null && product.getAmount() >= 1) {
+            getRecipeProducts().put(product, product.getAmount());
+        } else {
+            getRecipeProducts().put(product, 1);
+        }
+    }
+
+    public void calculateRecipeTotalCost() {
+        int totalCost = 0;
+        for (Product product : getRecipeProducts().keySet()) {
+            totalCost += product.getCost() * product.getAmount();
+        }
+        this.totalCost = totalCost;
     }
 }

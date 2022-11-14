@@ -39,7 +39,7 @@ public class Product {
     }
 
     public void setAmount(int amount) {
-        if (amount > 0) {
+        if (amount >= 0) {
             this.amount = amount;
         } else {
             throw new IllegalArgumentException("Заполните карточку товара " + getName() + " полностью");
